@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +7,22 @@
     <title>Document</title>
     <style>
         .container{
+            width: 600px;
+            height: 800px;
             border: 1px solid black;
             padding: 20px;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            color: white;
         }
     </style>
 </head>
 <body>
     <h1>아니 이게 머야 ;;;;</h1>
+    <a href="{% url 'cardCreate' %}">글쓰러가기</a>
     {% for i in card_list %}
-    <div class="container">
+    <div class="container" style="background-image: url('{% static i.templates %}');">
         <h3>{{ i.contents }}</h3>
-        <h4>{{ i.templates }}</h4>
         <h5>{{ i.date_now }}</h5>
     </div>
         {% endfor %}
