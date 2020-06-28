@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>힘내세요</title>
 
@@ -9,12 +10,15 @@
     <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
     <style>
-        html, body {
+        html,
+        body {
             height: 100%;
         }
+
         body {
             margin: 0;
         }
+
         nav {
             width: 100%;
             height: 7%;
@@ -22,15 +26,21 @@
             padding-right: 20px;
             box-sizing: border-box;
         }
+
+        #nav_h1, #saveDiv{
+            display: inline-block;
+        }        
+
         #left {
-           width: 80%;
-           height: 93%;
-           background-color: antiquewhite;
-           float: left;
-           position: relative;
-           padding: 75px;
-           box-sizing: border-box;
+            width: 80%;
+            height: 93%;
+            background-color: antiquewhite;
+            float: left;
+            position: relative;
+            padding: 75px;
+            box-sizing: border-box;
         }
+
         #right {
             width: 20%;
             height: 93%;
@@ -38,9 +48,11 @@
             box-sizing: border-box;
             background-color: aliceblue;
             float: left;
-            overflow:scroll;
+            overflow: scroll;
         }
-        #left, #right {
+
+        #left,
+        #right {
             display: flex;
             flex-direction: column;
 
@@ -81,6 +93,7 @@
         #input_text::placeholder {
             color: white;
         }
+
         #input_text:focus {
             outline: none;
         }
@@ -89,16 +102,18 @@
             height: 500px;
         } */
 
-        [type=radio] { 
+        [type=radio] {
             position: absolute;
             opacity: 0;
             width: 0;
             height: 0;
         }
-        [type=radio] + img {
+
+        [type=radio]+img {
             cursor: pointer;
         }
-        [type=radio]:checked + img {
+
+        [type=radio]:checked+img {
             outline: 2px solid gray;
         }
 
@@ -107,6 +122,7 @@
         }
 
         #nav_content {
+            width: 100%;
             position: absolute;
             top: 50%;
             -ms-transform: translateY(-50%);
@@ -127,16 +143,17 @@
             overflow: hidden;
             max-lines: 3;
         }
-
     </style>
-    
+
 </head>
+
 <body>
     <nav>
         <div id="nav_content">
             <h1 id="nav_h1">힘내세요~</h1>
-            <button type="button" id="save">등록</button>
-
+            <div id="saveDiv">
+                <button type="button" id="save">등록</button>
+            </div>
         </div>
     </nav>
     <div id="left">
@@ -156,62 +173,56 @@
             <!-- {% csrf_token %} -->
             <!-- <br> -->
             <label>
-                <input type="radio" name="image" value="bg1" checked onclick="change_bg(this.value)"/>
+                <input type="radio" name="image" value="bg1" checked onclick="change_bg(this.value)" />
                 <img src="{% static 'images/bg1.jpg' %}" width="250px" />
             </label>
             <br>
             <label>
-                <input type="radio" name="image" value="bg2" onclick="change_bg(this.value)"/>
+                <input type="radio" name="image" value="bg2" onclick="change_bg(this.value)" />
                 <img src="{% static 'images/bg2.jpg' %}" width="250px" />
             </label>
             <label>
-                <input type="radio" name="image" value="bg3" onclick="change_bg(this.value)"/>
+                <input type="radio" name="image" value="bg3" onclick="change_bg(this.value)" />
                 <img src="{% static 'images/bg3.jpg' %}" width="250px" />
             </label>
             <label>
-                <input type="radio" name="image" value="bg4" onclick="change_bg(this.value)"/>
+                <input type="radio" name="image" value="bg4" onclick="change_bg(this.value)" />
                 <img src="{% static 'images/bg4.jpg' %}" width="250px" />
             </label>
             <label>
-                <input type="radio" name="image" value="bg5" onclick="change_bg(this.value)"/>
+                <input type="radio" name="image" value="bg5" onclick="change_bg(this.value)" />
                 <img src="{% static 'images/bg5.jpg' %}" width="250px" />
             </label>
         </form>
     </div>
     <div id="img"></div>
     <script>
-//         $(function(){
-//     $("#save").click(function() { 
-//       html2canvas($('#div_input_text').get(0)).then( function (canvas) {
-//         var data = canvas.toDataURL();
-//         console.log(data)
-//         document.getElementById('img').appendChild(canvas)
-//         // data:image/png;base64,iVBORw0KGgoAAAANSUhE.....
-//       });
-//     });
-// });
+        $(function () {
+            $("#save").click(function () {
+                html2canvas($('#div_input_text').get(0)).then(function (canvas) {
 
-$(function(){
-    $("#save").click(function() { 
-      html2canvas($('#div_input_text').get(0)).then( function (canvas) {
-  
-        var data = canvas.toDataURL();
-  
-        // ajax통신
-        $.ajax({
-          type: 'POST',
-          url: '/card/save/',
-          data: {data:data},
-          success: function(result) {
-            var filename = result['filename'];
-            console.log(filename+' 완료')
-          },
-          error: function(e) { alert("에러발생");}
+                    var data = canvas.toDataURL();
+
+                    // ajax통신
+                    $.ajax({
+                        type: 'POST',
+                        url: '/card/save/',
+                        data: {
+                            data: data
+                        },
+                        success: function (result) {
+                            var filename = result['filename'];
+                            console.log(filename + ' 완료')
+                        },
+                        error: function (e) {
+                            alert("에러발생");
+                        }
+                    });
+
+                });
+            });
         });
-  
-      });
-    });
-});
     </script>
 </body>
+
 </html>

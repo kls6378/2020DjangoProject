@@ -3,7 +3,7 @@ from main.models import Card
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import random, os, base64
-from django.contrib.staticfiles.storage import staticfiles_storage
+from django.conf import settings
 
 # Create your views here.
 
@@ -21,18 +21,23 @@ def create(request):
         )
         return redirect('/')
 
+# ajax post 받아줌
 @csrf_exempt
 def canvasToImage(request):
     data = request.POST.__getitem__('data')
+    # data:image/png;base64 제거
     data = data[22:]
     number = random.randrange(1,10000)
 
-    # path = str(os.path.join(settings.STATIC_ROOT, 'resultImg/'))
-    path = staticfiles_storage.url('resultImg/')
+    # /himnaeseyo/main/static/resultImg/
+    path = str(os.path.join(settings.STATIC_ROOT, 'resultImg/'))
+    # print("로그 잠시만 : " + path)
+
     filename = 'image' + str(number) + '.png'
 
+    # "wb" 쓰기전용으로 파일을 open
     image = open(path+filename, "wb")
-
+    # 'base64.b64decode()'를 통하여 디코딩을 하고 파일에 써준다.
     image.write(base64.b64decode(data))
     image.close()
 

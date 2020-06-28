@@ -118,9 +118,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"), # Root의 static 파일
-    '/static/',	# garden App의 static 파일
-)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static1"),]
+STATIC_ROOT = os.path.join(BASE_DIR, 'main', 'static')
 
 STATIC_URL = '/static/'
