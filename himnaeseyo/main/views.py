@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from main.models import Card
+from main.models import Card, Photo
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import random, os, base64
@@ -8,8 +8,8 @@ from django.conf import settings
 # Create your views here.
 
 def index(request):
-    card_list = Card.objects.all().order_by('-date_now')
-    return render(request, 'index.html', {'card_list':card_list})
+    photo_list = Photo.objects.all().order_by('-id')
+    return render(request, 'index.html', {'photo_list':photo_list})
 
 def create(request):
     if request.method == 'GET':
@@ -31,9 +31,16 @@ def canvasToImage(request):
 
     # /himnaeseyo/main/static/resultImg/
     path = str(os.path.join(settings.STATIC_ROOT, 'resultImg/'))
+    modelpath = 'resultImg/'
     # print("로그 잠시만 : " + path)
 
     filename = 'image' + str(number) + '.png'
+    modelpath = modelpath + filename
+
+    new_photo = Photo.objects.create(
+            filename = filename,
+            path = modelpath,
+        )
 
     # "wb" 쓰기전용으로 파일을 open
     image = open(path+filename, "wb")

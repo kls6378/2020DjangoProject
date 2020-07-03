@@ -153,6 +153,7 @@
             <h1 id="nav_h1">힘내세요~</h1>
             <div id="saveDiv">
                 <button type="button" id="save">등록</button>
+                <a href="{% url 'index' %}">홈으로</a>
             </div>
         </div>
     </nav>
@@ -213,6 +214,7 @@
                         success: function (result) {
                             var filename = result['filename'];
                             console.log(filename + ' 완료')
+                            window.location.href = '{% url "index" %}';
                         },
                         error: function (e) {
                             alert("에러발생");

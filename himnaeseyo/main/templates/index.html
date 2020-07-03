@@ -20,11 +20,9 @@
 <body>
     <h1>아니 이게 머야 ;;;;</h1>
     <a href="{% url 'cardCreate' %}">글쓰러가기</a>
-    {% for i in card_list %}
-    <div class="container" style="background-image: url('{% static i.templates %}');">
-        <h3>{{ i.contents }}</h3>
-        <h5>{{ i.date_now }}</h5>
-    </div>
-        {% endfor %}
+    <br>
+    {% for i in photo_list %}
+    <img src="{% static i.path %}" alt="">
+    {% endfor %}
 </body>
 </html>
