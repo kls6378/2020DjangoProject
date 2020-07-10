@@ -1,0 +1,51 @@
+#home_left {
+    padding: 20px;
+    float: left;
+    width: 15%;
+    height: 93vh;
+    box-sizing: border-box;
+}
+
+#home_right_left {
+    display: inline;
+}
+
+#home_right_right {
+    margin-left: 15px;
+    display: inline;
+}
+
+.mail_box {
+    padding: 15px;
+    background-color: #efefef;
+    border-radius: 10px;
+}
+
+h4 {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+    display: inline;
+}
+
+#user_icon {
+    width: 50px;
+}
+
+#home_right {
+    padding: 20px;
+    float: left;
+    width: 85%;
+    height: 93vh;
+    box-sizing: border-box;
+    background-color: aliceblue;
+    margin-bottom: 20px;
+}
+
+#himnae {
+    font-size: x-large;
+    font-weight: bold;
+    color: white;
+}

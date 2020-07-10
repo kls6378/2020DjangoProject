@@ -1,16 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="" method="POST">
+{% extends "base.html" %}
+{% block content %}
+<!-- <form action="POST" id="nav_form">
+    <button>등록</button>
+</form> -->
+<div id="left" style="padding-top: 0;">
+    <div id="decorate" style="background-color: #efefef; width: 500px; margin-top: 10px; margin-bottom: 10px; border: 0; border-radius: 10px; position: relative;">
+        <input type="color" id="fontColor" style="width: 50px; height: 50px; margin-left: 25px; padding: 5px; box-sizing: border-box; background-color: rgba(0, 0, 0, 0); border: 0;">
+        <button id="fontColorBtn" onclick="setFontColor()" style="font-size: large; background-color: rgba(0, 0, 0, 0); border: 0; font-weight: bold;
+        position: absolute; top: 50%; left: 115px; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">색 적용</button>
+        <span style="position: absolute; top: 50%; left: 230px; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
+            <button class="zoom" onclick="zoomIn();" style="background-color: rgba(255, 255, 255, 0.35); border: 0; border-radius: 10px; font-weight: bold;">+</button>
+            <b>&nbsp;&nbsp;글자크기&nbsp;&nbsp;</b>
+            <button class="zoom zoomout" onclick="zoomOut();" style="background-color: rgba(255, 255, 255, 0.35); border: 0; border-radius: 10px; font-weight: bold;">-</button>
+        </span>
+        <button type="button" id="save" style="width: 150px;
+        background-color: rgba(100, 100, 100, 0.1); border: 0; border-radius: 10px; font-size: large; font-weight: bold;
+        position: absolute; top: 50%; left: 400px; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">등록</button>
+    </div>
+    <div id="div_input_text">
+        <form action="POST" id="form_input_text">
+            {% csrf_token %}
+            <input type="text" id="input_text" placeholder="문구를 입력하세요" autofocus onclick="dragElement(this)">
+        </form>
+    </div>
+</div>
+<div id="right">
+    <h2 style="text-align: center;">템플릿 선택</h2>
+    <form action="POST" style="text-align: center;">
         {% csrf_token %}
-        <input type="text" name="contents">
-        <input type="text" name="templates">
-        <input type="submit" value="제출">
+        <label>
+            <input type="radio" name="image" value="bg1" checked onclick="change_bg(this.value)"/>
+            <img src="/static/images/bg1.jpg" width="250px" />
+        </label>
+        <label>
+            <input type="radio" name="image" value="bg2" onclick="change_bg(this.value)" />
+            <img src="/static/images/bg2.jpg" width="250px" />
+        </label>
+        <label>
+            <input type="radio" name="image" value="bg3" onclick="change_bg(this.value)" />
+            <img src="/static/images/bg3.jpg" width="250px" />
+        </label>
+        <label>
+            <input type="radio" name="image" value="bg4" onclick="change_bg(this.value)" />
+            <img src="/static/images/bg4.jpg" width="250px" />
+        </label>
+        <label>
+            <input type="radio" name="image" value="bg5" onclick="change_bg(this.value)" />
+            <img src="/static/images/bg5.jpg" width="250px" />
+        </label>
     </form>
-</body>
-</html>
+</div>
+
+<script>
+    $(function () {
+        $("#save").click(function () {
+            html2canvas($('#div_input_text').get(0)).then(function (canvas) {
+
+                var data = canvas.toDataURL();
+
+                // ajax통신
+                $.ajax({
+                    type: 'POST',
+                    url: '/card/save/',
+                    data: {
+                        data: data
+                    },
+                    success: function (result) {
+                        var filename = result['filename'];
+                        console.log(filename + ' 완료')
+                        window.location.href = '{% url "index" %}';
+                    },
+                    error: function (e) {
+                        alert("에러발생");
+                    }
+                });
+
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -9,11 +9,14 @@ from django.conf import settings
 
 def index(request):
     photo_list = Photo.objects.all().order_by('-id')
-    return render(request, 'index.html', {'photo_list':photo_list})
+    # randEnd = photo_list[0].id
+    # print(randEnd)                                   
+    # n = random.randrange(1, randEnd)                         
+    return render(request, 'home.html', {'photo_list':photo_list})
 
 def create(request):
     if request.method == 'GET':
-        return render(request, 'base.html')
+        return render(request, 'create.html')
     elif request.method == 'POST':
         new_card = Card.objects.create(
             contents = request.POST['contents'],

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
+# import DATA_UPLOAD_MAX_MEMORY_SIZE from django.conf.global_settings
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -122,3 +122,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static1"),]
 STATIC_ROOT = os.path.join(BASE_DIR, 'main', 'static')
 
 STATIC_URL = '/static/'
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880

@@ -55,3 +55,45 @@ function dragElement(elmnt) {
         }
     }
 }
+
+function setFontColor(){
+    var input_text = document.getElementById('input_text')
+    var fontColor = document.getElementById('fontColor')
+    input_text.style.color = fontColor.value
+    console.log(fontColor.value)
+}
+
+var fontSizeValue = 30
+
+function zoomIn(){
+    var input_text = document.getElementById('input_text')
+    console.log(input_text.style.fontSize)
+    fontSizeValue +=10
+    input_text.style.fontSize = fontSizeValue+'pt'
+    console.log("확대")
+}
+
+function zoomOut(){
+    var input_text = document.getElementById('input_text')
+    fontSizeValue -= 10
+    input_text.style.fontSize = fontSizeValue + 'pt'
+    console.log("축소")
+}
+
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
