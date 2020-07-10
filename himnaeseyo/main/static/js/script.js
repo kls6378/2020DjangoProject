@@ -56,33 +56,61 @@ function dragElement(elmnt) {
     }
 }
 
+
+$(function () {
+    $("#save").click(function () {
+        html2canvas($('#div_input_text').get(0)).then(function (canvas) {
+
+            var data = canvas.toDataURL();
+
+            // ajax통신
+            $.ajax({
+                type: 'POST',
+                url: '/card/save/',
+                data: {
+                    data: data
+                },
+                success: function (result) {
+                    var filename = result['filename'];
+                    console.log(filename + ' 완료')
+                    window.location.href = '/';
+                },
+                error: function (e) {
+                    alert("에러발생");
+                }
+            });
+
+        });
+    });
+});
+
+
 function setFontColor(){
     var input_text = document.getElementById('input_text')
     var fontColor = document.getElementById('fontColor')
     input_text.style.color = fontColor.value
-    console.log(fontColor.value)
+    // console.log(fontColor.value)
 }
+
 
 var fontSizeValue = 30
-
-function zoomIn(){
+function fontSizeUp(){
     var input_text = document.getElementById('input_text')
-    console.log(input_text.style.fontSize)
+    // console.log(input_text.style.fontSize)
     fontSizeValue +=10
     input_text.style.fontSize = fontSizeValue+'pt'
-    console.log("확대")
+    // console.log("확대")
 }
 
-function zoomOut(){
+function fontSizeDown(){
     var input_text = document.getElementById('input_text')
     fontSizeValue -= 10
     input_text.style.fontSize = fontSizeValue + 'pt'
-    console.log("축소")
+    // console.log("축소")
 }
 
 var slideIndex = 1;
 showDivs(slideIndex);
-
 function plusDivs(n) {
   showDivs(slideIndex += n);
 }

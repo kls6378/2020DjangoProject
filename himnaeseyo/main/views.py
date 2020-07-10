@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from main.models import Card, Photo
+from main.models import Photo
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import random, os, base64
@@ -7,7 +7,7 @@ from django.conf import settings
 
 # Create your views here.
 
-def index(request):
+def home(request):
     photo_list = Photo.objects.all().order_by('-id')
     # randEnd = photo_list[0].id
     # print(randEnd)                                   
@@ -15,18 +15,11 @@ def index(request):
     return render(request, 'home.html', {'photo_list':photo_list})
 
 def create(request):
-    if request.method == 'GET':
-        return render(request, 'create.html')
-    elif request.method == 'POST':
-        new_card = Card.objects.create(
-            contents = request.POST['contents'],
-            templates = request.POST['templates'],
-        )
-        return redirect('/')
+    return render(request, 'create.html')
 
 # ajax post 받아줌
 @csrf_exempt
-def canvasToImage(request):
+def cardImageSave(request):
     data = request.POST.__getitem__('data')
     # data:image/png;base64 제거
     data = data[22:]
@@ -51,5 +44,4 @@ def canvasToImage(request):
     image.write(base64.b64decode(data))
     image.close()
 
-    answer = {'filename': filename}
-    return JsonResponse(answer)
+    return JsonResponse({'filename': filename})
